@@ -54,10 +54,10 @@ app.get("/tasks/:name", (req, res) => {
           if (error) throw new Error(error);
 
           data = {
-            'rb1x': responseRobots.body,
-            'rb1y': typeof responseRobots.body,
-            'rb2x': responseRobots.body,
-            'rb2y': responseRobots.body[0],
+            'rb1x': responseRobots.body[0].x,
+            'rb1y': responseRobots.body[0].y,
+            'rb2x': responseRobots.body[1].x,
+            'rb2y': responseRobots.body[1].y,
             'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
           } 
 
