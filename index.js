@@ -58,7 +58,7 @@ app.get("/tasks/:name", (req, res) => {
             list.push(element.x+", "+element.y)
           });
 
-          //res.send(list)
+          //
           
           data = {
             'rb1x': JSON.parse(responseRobots.body)[0].x,
@@ -69,6 +69,7 @@ app.get("/tasks/:name", (req, res) => {
             'list': list.toString().replace('"', '\'')
           } 
 
+          res.send(data)
           
           //var request = require('request');
           var options = {
