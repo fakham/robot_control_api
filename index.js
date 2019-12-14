@@ -55,11 +55,11 @@ app.get("/tasks/:name", (req, res) => {
           let list = []
           responseRobots.body = responseRobots.body.replace("\\", '');
           TasksResults.forEach(element => {
-            list.push("'"+element.x+", "+element.y+"'")
+            list.push(element.x+", "+element.y)
           });
 
           res.send(list)
-          
+
           data = {
             'rb1x': JSON.parse(responseRobots.body)[0].x,
             'rb1y': JSON.parse(responseRobots.body)[0].y,
