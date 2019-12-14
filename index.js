@@ -54,7 +54,7 @@ app.get("/tasks/:name", (req, res) => {
           if (error) throw new Error(error);
 
           data = {
-            'rb1x': responseRobots.body.rbx1,
+            'rb1x': responseRobots.body.rb1x,
             //'rb1y': responseRobots.body[0],
             //'rb2x': responseRobots.body[1],
             //'rb2y': responseRobots.body[1],
