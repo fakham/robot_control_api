@@ -121,9 +121,9 @@ app.get("/tasks/:name", (req, res) => {
             uri: 'https://robowat.herokuapp.com/upload',
             body: formData,
             method: 'POST'
-          }, function (err, res, body) {
+          }, function (err, ress, body) {
             //it works!
-            res.send(res);
+            res.send(ress);
           });
 
 
