@@ -35,7 +35,7 @@ app.get("/tasks", (req, res) => {
 //get tasks for a specific robot with name
 app.get("/tasks/:name", (req, res) => {
 
-  //let name = req.params.name
+  let name = req.params.name
   MongoClient.connect(
     process.env.DATABASE_CONNECTION,
     { useUnifiedTopology: true },
@@ -74,8 +74,8 @@ app.get("/tasks/:name", (req, res) => {
               res.send(response);
                 //console.log(response);
             });
-          */
-
+          
+            
          var bodyFormData = new FormData();
 
          bodyFormData.append('rb1x', 0);
@@ -99,8 +99,8 @@ app.get("/tasks/:name", (req, res) => {
               res.send(body);
               console.log(body);
           });
-
-          //res.send(results);
+*/
+          res.send("results");
         });
       db.close();
     }
