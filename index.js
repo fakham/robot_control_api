@@ -65,7 +65,6 @@ app.get("/tasks/:name", (req, res) => {
             'rb1y': JSON.parse(responseRobots.body)[0].y,
             'rb2x': JSON.parse(responseRobots.body)[1].x,
             'rb2y': JSON.parse(responseRobots.body)[1].y,
-            //'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']",
             'list': lista
           } 
 
@@ -82,7 +81,13 @@ app.get("/tasks/:name", (req, res) => {
           request(options, function (error, response) { 
             if (error) throw new Error(error);
             res.send(response.body);
-            console.log(response.body);
+            if(name == 'Corki'){
+              res.send(JSON.parse(response.body).r1)
+            }else if( name == 'Rumble'){
+              res.send(JSON.parse(response.body).r2)
+            }else{
+              res.send("please check the name use Corki or Rumble")
+            }
           });
           
 
