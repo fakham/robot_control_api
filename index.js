@@ -47,85 +47,31 @@ app.get("/tasks/:name", (req, res) => {
         .collection("tasks")
         .find({})
         .toArray((err, results) => {
-          /*
+          
           let list = []
           results.forEach(element => {
             list.push(element.x+', '+element.y);
           });
           
-          var bodyFormData = new FormData();
-
-          bodyFormData.append('rb1x', 0);
-          bodyFormData.append('rb1y', 0);
-          bodyFormData.append('rb2x', 1);
-          bodyFormData.append('rb2y', 1);
-          bodyFormData.append('list', "['3, 2', '3, 3', '4, 1', '2, 1','0, 1']");
-          //bodyFormData.set('list', list);
-
-          axios({
-            method: 'POST',
-            url: 'https://robowat.herokuapp.com/upload',
-            data: bodyFormData,
-            headers: {'Content-Type': 'form-data'},
-          }).then(function (response) {
-              res.send(response);
-                //console.log(response);
-            })
-            .catch(function (response) {
-              res.send(response);
-                //console.log(response);
-            });
-          
-        
-
-         var bodyFormData = new FormData();
-
-         bodyFormData.append('rb1x', 0);
-         bodyFormData.append('rb1y', 0);
-         bodyFormData.append('rb2x', 1);
-         bodyFormData.append('rb2y', 1);
-         bodyFormData.append('list', "['3, 2', '3, 3', '4, 1', '2, 1','0, 1']");
-
-          const options = {
-              method: "POST",
-              url: "https://robowat.herokuapp.com/upload",
-              headers: {
-                  "Content-Type": "multipart/form-data"
-              },
-              formData : bodyFormData
-          };
-          
-          request(options, function (err, res, body) {
-              if(err) console.log(err);
-
-              res.send(body);
-              console.log(body);
-          });
- */
-          var form = {
-            rb1x: 0,
-            rb1y: 0,
-            rb2x: 1,
-            rb2y: 1,
-            list: "['3, 2', '3, 3', '4, 1', '2, 1','0, 1']"
-          };
-
-          var formData = querystring.stringify(form);
-          var contentLength = formData.length;
-
-          request({
-            headers: {
-              'Content-Length': contentLength,
-              'Content-Type': 'multipart/form-data'
+          //var request = require('request');
+          var options = {
+            'method': 'POST',
+            'url': 'https://robowat.herokuapp.com/upload',
+            'headers': {
             },
-            uri: 'https://robowat.herokuapp.com/upload',
-            body: formData,
-            method: 'POST'
-          }, function (err, ress, body) {
-            //it works!
-            res.send(ress);
+            formData: {
+              'rb1x': '0',
+              'rb1y': '0',
+              'rb2x': '1',
+              'rb2y': '1',
+              'list': '[\'3, 2\', \'3, 3\', \'4, 1\', \'2, 1\',\'0, 1\']'
+            }
+          };
+          request(options, function (error, response) { 
+            if (error) throw new Error(error);
+            res.send(response.body);
+            console.log(response.body);
           });
-
 
 
           //res.send("results");
