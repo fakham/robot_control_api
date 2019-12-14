@@ -44,7 +44,7 @@ app.get("/tasks/:name", (req, res) => {
         .collection("tasks")
         .find({})
         .toArray((err, results) => {
-          /*
+          
           let list = []
           results.forEach(element => {
             list.push(element.x+', '+element.y);
@@ -65,7 +65,7 @@ app.get("/tasks/:name", (req, res) => {
             headers: {'Content-Type': 'multipart/form-data' }
             })
             .then(function (response) {
-                res.send(response);
+              res.send(response);
                 //console.log(response);
             })
             .catch(function (response) {
@@ -74,10 +74,10 @@ app.get("/tasks/:name", (req, res) => {
             });
 
 
-            */
+            
 
 
-          res.send(results);
+          //res.send(results);
         });
       db.close();
     }
