@@ -52,11 +52,11 @@ app.get("/tasks/:name", (req, res) => {
           });
           
           var bodyFormData = new FormData();
-          bodyFormData.set('rb1x', 0);
-          bodyFormData.set('rb1y', 0);
-          bodyFormData.set('rb2x', 1);
-          bodyFormData.set('rb2y', 1);
-          bodyFormData.set('list', "['3, 2', '3, 3', '4, 1', '2, 1','0, 1']");
+          bodyFormData.append('rb1x', 0);
+          bodyFormData.append('rb1y', 0);
+          bodyFormData.append('rb2x', 1);
+          bodyFormData.append('rb2y', 1);
+          bodyFormData.append('list', "['3, 2', '3, 3', '4, 1', '2, 1','0, 1']");
           //bodyFormData.set('list', list);
 
           axios({
