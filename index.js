@@ -59,7 +59,7 @@ app.get("/tasks/:name", (req, res) => {
             'rb2x': responseRobots[1],
             'rb2y': responseRobots[1],
             'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
-          }
+          } 
 
           res.send(data)
           //var request = require('request');
