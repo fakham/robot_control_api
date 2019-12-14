@@ -44,6 +44,11 @@ app.post("/tasks", (req, res) => {
   );
 });
 
+
+app.post("/optimale", (req, res) => {
+  res.send("jhhh");
+});
+
 app.delete("/tasks/:id", (req, res) => {
   MongoClient.connect(
     process.env.DATABASE_CONNECTION,
