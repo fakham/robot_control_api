@@ -58,7 +58,7 @@ app.get("/tasks/:name", (req, res) => {
             list.push(element.x+", "+element.y)
           });
 
-          
+          let lista = list.toString()
           
           data = {
             'rb1x': JSON.parse(responseRobots.body)[0].x,
@@ -66,7 +66,7 @@ app.get("/tasks/:name", (req, res) => {
             'rb2x': JSON.parse(responseRobots.body)[1].x,
             'rb2y': JSON.parse(responseRobots.body)[1].y,
             //'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']",
-            'list': list.toString().replace(/"/g, "'")
+            'list': lista.replace(/"/g, "'")
           } 
 
           res.send(data)
