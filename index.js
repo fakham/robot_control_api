@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded());
 
 dotenv.config();
 
+//get all tasks
 app.get("/tasks", (req, res) => {
   MongoClient.connect(
     process.env.DATABASE_CONNECTION,
@@ -22,6 +23,34 @@ app.get("/tasks", (req, res) => {
         .find({})
         .toArray((err, results) => {
           res.send(results);
+        });
+      db.close();
+    }
+  );
+});
+
+//get tasks for a specific robot with name
+app.get("/tasks/:name", (req, res) => {
+
+  let name = req.params.name
+  MongoClient.connect(
+    process.env.DATABASE_CONNECTION,
+    { useUnifiedTopology: true },
+    (err, db) => {
+      console.log("connected to db!");
+      const dbo = db.db("irobot");
+      dbo
+        .collection("tasks")
+        .find({})
+        .toArray((err, results) => {
+          
+          let tasks = []
+          results.forEach(element => {
+            tasks.push(element.x);
+            tasks.push(element.y);
+          });
+
+          res.send(tasks);
         });
       db.close();
     }
@@ -44,11 +73,6 @@ app.post("/tasks", (req, res) => {
   );
 });
 
-
-app.post("/optimale", (req, res) => {
-  res.send("jhhh");
-});
-
 app.delete("/tasks/:id", (req, res) => {
   MongoClient.connect(
     process.env.DATABASE_CONNECTION,
@@ -68,6 +92,7 @@ app.delete("/tasks/:id", (req, res) => {
   );
 });
 
+// get robots with position
 app.get("/robots", (req, res) => {
   MongoClient.connect(
     process.env.DATABASE_CONNECTION,
@@ -86,6 +111,7 @@ app.get("/robots", (req, res) => {
   );
 });
 
+//update robot postion
 app.post("/robots", (req, res) => {
   MongoClient.connect(
     process.env.DATABASE_CONNECTION,
@@ -104,6 +130,7 @@ app.post("/robots", (req, res) => {
   );
 });
 
+// get robot with name
 app.get("/robots/:name", (req, res) => {
   MongoClient.connect(
     process.env.DATABASE_CONNECTION,
