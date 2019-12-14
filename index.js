@@ -7,6 +7,7 @@ const app = express();
 const axios = require('axios');
 const FormData = require('form-data');
 var request = require('request');
+var querystring = require('querystring');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -75,7 +76,8 @@ app.get("/tasks/:name", (req, res) => {
                 //console.log(response);
             });
           
-            
+        
+
          var bodyFormData = new FormData();
 
          bodyFormData.append('rb1x', 0);
@@ -99,8 +101,34 @@ app.get("/tasks/:name", (req, res) => {
               res.send(body);
               console.log(body);
           });
-*/
-          res.send("results");
+ */
+          var form = {
+            rb1x: 0,
+            rb1y: 0,
+            rb2x: 1,
+            rb2y: 1,
+            list: "['3, 2', '3, 3', '4, 1', '2, 1','0, 1']"
+          };
+
+          var formData = querystring.stringify(form);
+          var contentLength = formData.length;
+
+          request({
+            headers: {
+              'Content-Length': contentLength,
+              'Content-Type': 'multipart/form-data'
+            },
+            uri: 'https://robowat.herokuapp.com/upload',
+            body: formData,
+            method: 'POST'
+          }, function (err, res, body) {
+            //it works!
+            res.send(res);
+          });
+
+
+
+          //res.send("results");
         });
       db.close();
     }
