@@ -35,7 +35,7 @@ app.get("/tasks", (req, res) => {
 //get tasks for a specific robot with name
 app.get("/tasks/:name", (req, res) => {
 
-  let name = req.params.name
+  //let name = req.params.name
   MongoClient.connect(
     process.env.DATABASE_CONNECTION,
     { useUnifiedTopology: true },
