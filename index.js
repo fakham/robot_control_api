@@ -45,20 +45,20 @@ app.get("/tasks/:name", (req, res) => {
       const dbo = db.db("irobot");
       dbo.collection("tasks").find({}).toArray((err, TasksResults) => {
 
-        const dbo = db.db("irobot");
+        var options = {
+          'method': 'GET',
+          'url': 'https://irobot-api.herokuapp.com/robots',
+          'headers': {
+          }
+        };
+        request(options, function (error, response) { 
+          if (error) throw new Error(error);
 
-          let list = []
-          TasksResults.forEach(element => {
-            list.push(element.x+', '+element.y);
-          });
-
-          dbo.collection("robots").find({}).toArray((err, RobotsResults) => {
-              
-              
-              res.send(RobotsResults);
-          });
-          db.close();
-          
+          res.send(response.body)
+          //console.log(response.body);
+        });
+        
+          //res.send("results");
         });
       db.close();
     }
