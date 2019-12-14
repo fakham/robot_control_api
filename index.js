@@ -52,14 +52,20 @@ app.get("/tasks/:name", (req, res) => {
         };
         request(options, function (error, responseRobots) { 
           if (error) throw new Error(error);
-
+          let list = []
           responseRobots.body = responseRobots.body.replace("\\", '');
+          TasksResults.forEach(element => {
+            list.push("'"+element.x+", "+element.y+"'")
+          });
+
+
           data = {
             'rb1x': JSON.parse(responseRobots.body)[0].x,
             'rb1y': JSON.parse(responseRobots.body)[0].y,
             'rb2x': JSON.parse(responseRobots.body)[1].x,
             'rb2y': JSON.parse(responseRobots.body)[1].y,
-            //'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
+            'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']",
+            'list': list
           } 
 
           res.send(data)
