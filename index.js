@@ -43,40 +43,22 @@ app.get("/tasks/:name", (req, res) => {
     (err, db) => {
       console.log("connected to db!");
       const dbo = db.db("irobot");
-      dbo
-        .collection("tasks")
-        .find({})
-        .toArray((err, results) => {
-          
+      dbo.collection("tasks").find({}).toArray((err, TasksResults) => {
+
+        const dbo = db.db("irobot");
+
           let list = []
-          results.forEach(element => {
+          TasksResults.forEach(element => {
             list.push(element.x+', '+element.y);
           });
-          
 
-          data = {
-            'rb1x': 0,
-            'rb1y': 0,
-            'rb2x': 1,
-            'rb2y': 1,
-            'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
-          }
-          //var request = require('request');
-          var options = {
-            'method': 'POST',
-            'url': 'https://robowat.herokuapp.com/upload',
-            'headers': {
-            },
-            formData: data
-          };
-          request(options, function (error, response) { 
-            if (error) throw new Error(error);
-            res.send(response.body);
-            console.log(response.body);
+          dbo.collection("robots").find({}).toArray((err, RobotsResults) => {
+              
+              
+              res.send(RobotsResults);
           });
-
-
-          //res.send("results");
+          db.close();
+          
         });
       db.close();
     }
@@ -98,6 +80,32 @@ app.post("/tasks", (req, res) => {
     }
   );
 });
+
+
+/*
+data = {
+            'rb1x': 0,
+            'rb1y': 0,
+            'rb2x': 1,
+            'rb2y': 1,
+            'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
+          }
+          //var request = require('request');
+          var options = {
+            'method': 'POST',
+            'url': 'https://robowat.herokuapp.com/upload',
+            'headers': {
+            },
+            formData: data
+          };
+          request(options, function (error, response) { 
+            if (error) throw new Error(error);
+            res.send(response.body);
+            console.log(response.body);
+          });
+
+
+*/
 
 app.delete("/tasks/:id", (req, res) => {
   MongoClient.connect(
