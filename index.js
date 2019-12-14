@@ -58,7 +58,8 @@ app.get("/tasks/:name", (req, res) => {
             list.push("'"+element.x+", "+element.y+"'")
           });
 
-
+          res.send(list)
+          
           data = {
             'rb1x': JSON.parse(responseRobots.body)[0].x,
             'rb1y': JSON.parse(responseRobots.body)[0].y,
@@ -68,7 +69,7 @@ app.get("/tasks/:name", (req, res) => {
             'list': list
           } 
 
-          res.send(data)
+          
           //var request = require('request');
           var options = {
             'method': 'POST',
