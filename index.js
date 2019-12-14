@@ -58,7 +58,7 @@ app.get("/tasks/:name", (req, res) => {
             list.push("'"+element.x+", "+element.y+"'")
           });
 
-          let lista = list.toString()
+          let lista = '['+list.toString()+']'
           
           data = {
             'rb1x': JSON.parse(responseRobots.body)[0].x,
