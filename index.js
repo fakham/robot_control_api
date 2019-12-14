@@ -57,7 +57,7 @@ app.get("/tasks/:name", (req, res) => {
           data = {
             'rb1x': typeof responseRobots.body,
             'rb1y': responseRobots.body,
-            'rb2x': typeof JSON.parse(responseRobots.body),
+            'rb2x': JSON.parse(responseRobots.body).rb2x,
             //'rb2y': responseRobots.body[1],
             //'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
           } 
