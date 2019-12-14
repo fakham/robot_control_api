@@ -53,11 +53,11 @@ app.get("/tasks/:name", (req, res) => {
         request(options, function (error, responseRobots) { 
           if (error) throw new Error(error);
 
-          responseRobots.body.replace("\\", '');
+          responseRobots.body = responseRobots.body.replace("\\", '');
           data = {
             'rb1x': typeof responseRobots.body,
             'rb1y': responseRobots.body,
-            //'rb2x': responseRobots.body[1],
+            'rb2x': JSON.parse(responseRobots.body).rb2x.x,
             //'rb2y': responseRobots.body[1],
             //'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
           } 
