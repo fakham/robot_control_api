@@ -66,7 +66,7 @@ app.get("/tasks/:name", (req, res) => {
             'rb2x': JSON.parse(responseRobots.body)[1].x,
             'rb2y': JSON.parse(responseRobots.body)[1].y,
             //'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']",
-            'list': list.toString().replace('"', "'")
+            'list': list.toString()
           } 
 
           res.send(data)
