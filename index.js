@@ -55,7 +55,7 @@ app.get("/tasks/:name", (req, res) => {
           let list = []
           responseRobots.body = responseRobots.body.replace("\\", '');
           TasksResults.forEach(element => {
-            list.push(element.x+", "+element.y)
+            list.push("'"+element.x+", "+element.y+"'")
           });
 
           let lista = list.toString()
