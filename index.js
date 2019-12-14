@@ -69,7 +69,7 @@ app.get("/tasks/:name", (req, res) => {
             'list': lista
           } 
 
-          res.send(data)
+          //res.send(data)
           
           //var request = require('request');
           var options = {
@@ -81,7 +81,7 @@ app.get("/tasks/:name", (req, res) => {
           };
           request(options, function (error, response) { 
             if (error) throw new Error(error);
-            //res.send(response.body);
+            res.send(response.body);
             console.log(response.body);
           });
           
