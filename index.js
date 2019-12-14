@@ -44,21 +44,48 @@ app.get("/tasks/:name", (req, res) => {
       console.log("connected to db!");
       const dbo = db.db("irobot");
       dbo.collection("tasks").find({}).toArray((err, TasksResults) => {
-
         var options = {
           'method': 'GET',
           'url': 'https://irobot-api.herokuapp.com/robots',
           'headers': {
           }
         };
-        request(options, function (error, response) { 
+        request(options, function (error, responseRobots) { 
           if (error) throw new Error(error);
 
-          res.send(response.body)
-          //console.log(response.body);
+          data = {
+            'rb1x': responseRobots[0].x,
+            'rb1y': responseRobots[0].y,
+            'rb2x': responseRobots[1].x,
+            'rb2y': responseRobots[1].y,
+            'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
+          }
+
+          res.send(data)
+          //var request = require('request');
+          var options = {
+            'method': 'POST',
+            'url': 'https://robowat.herokuapp.com/upload',
+            'headers': {
+            },
+            formData: data
+          };
+          request(options, function (error, response) { 
+            if (error) throw new Error(error);
+            //res.send(response.body);
+            console.log(response.body);
+          });
+          
+
+
+
+
+
+
+
+          
         });
-        
-          //res.send("results");
+
         });
       db.close();
     }
@@ -83,26 +110,7 @@ app.post("/tasks", (req, res) => {
 
 
 /*
-data = {
-            'rb1x': 0,
-            'rb1y': 0,
-            'rb2x': 1,
-            'rb2y': 1,
-            'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
-          }
-          //var request = require('request');
-          var options = {
-            'method': 'POST',
-            'url': 'https://robowat.herokuapp.com/upload',
-            'headers': {
-            },
-            formData: data
-          };
-          request(options, function (error, response) { 
-            if (error) throw new Error(error);
-            res.send(response.body);
-            console.log(response.body);
-          });
+
 
 
 */
