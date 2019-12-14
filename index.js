@@ -58,14 +58,14 @@ app.get("/tasks/:name", (req, res) => {
             list.push(element.x+", "+element.y)
           });
 
-          res.send(list)
+          //res.send(list)
 
           data = {
             'rb1x': JSON.parse(responseRobots.body)[0].x,
             'rb1y': JSON.parse(responseRobots.body)[0].y,
             'rb2x': JSON.parse(responseRobots.body)[1].x,
             'rb2y': JSON.parse(responseRobots.body)[1].y,
-            'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']",
+            //'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']",
             'list': list
           } 
 
