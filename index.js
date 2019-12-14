@@ -53,19 +53,21 @@ app.get("/tasks/:name", (req, res) => {
             list.push(element.x+', '+element.y);
           });
           
+
+          data = {
+            'rb1x': 0,
+            'rb1y': 0,
+            'rb2x': 1,
+            'rb2y': 1,
+            'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
+          }
           //var request = require('request');
           var options = {
             'method': 'POST',
             'url': 'https://robowat.herokuapp.com/upload',
             'headers': {
             },
-            formData: {
-              'rb1x': '0',
-              'rb1y': '0',
-              'rb2x': '1',
-              'rb2y': '1',
-              'list': '[\'3, 2\', \'3, 3\', \'4, 1\', \'2, 1\',\'0, 1\']'
-            }
+            formData: data
           };
           request(options, function (error, response) { 
             if (error) throw new Error(error);
