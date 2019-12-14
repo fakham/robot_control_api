@@ -54,10 +54,10 @@ app.get("/tasks/:name", (req, res) => {
           if (error) throw new Error(error);
 
           data = {
-            'rb1x': responseRobots[0].x,
-            'rb1y': responseRobots[0].y,
-            'rb2x': responseRobots[1].x,
-            'rb2y': responseRobots[1].y,
+            'rb1x': responseRobots[0],
+            'rb1y': responseRobots[0],
+            'rb2x': responseRobots[1],
+            'rb2y': responseRobots[1],
             'list': "['3, 2','3, 3','4, 1','2, 1','0, 1']"
           }
 

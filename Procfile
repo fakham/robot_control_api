@@ -1,1 +1,1 @@
-web: yarn add nodemon && yarn start
+web: yarn start
