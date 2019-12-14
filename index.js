@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 const mongodb = require("mongodb");
 const app = express();
+const axios = require('axios');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -44,13 +45,39 @@ app.get("/tasks/:name", (req, res) => {
         .find({})
         .toArray((err, results) => {
           
-          let tasks = []
+          let list = []
           results.forEach(element => {
-            tasks.push(element.x);
-            tasks.push(element.y);
+            list.push(element.x+', '+element.y);
           });
+          
+          var bodyFormData = new FormData();
+          bodyFormData.set('rb1x', 0);
+          bodyFormData.set('rb1y', 0);
+          bodyFormData.set('rb2x', 1);
+          bodyFormData.set('rb2y', 1);
+          //bodyFormData.set('list', "['3, 2', '3, 3', '4, 1', '2, 1','0, 1']");
+          bodyFormData.set('list', list);
 
-          res.send(tasks);
+          axios({
+            method: 'post',
+            url: 'https://robowat.herokuapp.com/upload',
+            data: bodyFormData,
+            headers: {'Content-Type': 'multipart/form-data' }
+            })
+            .then(function (response) {
+                res.send(response);
+                //console.log(response);
+            })
+            .catch(function (response) {
+              res.send(response);
+                //console.log(response);
+            });
+
+
+
+
+
+          //res.send(tasks);
         });
       db.close();
     }
