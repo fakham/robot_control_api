@@ -60,8 +60,12 @@ app.get("/tasks/:name", (req, res) => {
           bodyFormData.append('list', "['3, 2', '3, 3', '4, 1', '2, 1','0, 1']");
           //bodyFormData.set('list', list);
 
-          axios.post('https://robowat.herokuapp.com/upload',bodyFormData)
-            .then(function (response) {
+          axios({
+            method: 'POST',
+            url: 'https://robowat.herokuapp.com/upload',
+            data: bodyFormData,
+            headers: {'Content-Type': 'form-data'},
+          }).then(function (response) {
               res.send(response);
                 //console.log(response);
             })
@@ -69,6 +73,9 @@ app.get("/tasks/:name", (req, res) => {
               res.send(response);
                 //console.log(response);
             });
+
+
+            
 
 
             
