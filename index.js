@@ -82,8 +82,15 @@ app.get("/tasks/:name", (req, res) => {
             if (error) throw new Error(error);
               
             if(name == 'Corki'){
-              res.send(JSON.parse(response.body).r1)
+              let Corki = []
+              JSON.parse(response.body).r1.forEach(element => {
+                Corki.push(element[0]);
+                Corki.push(element[1]);
+              });
+              res.send(JSON.parse(Corki)
             }else if( name == 'Rumble'){
+
+
               res.send(JSON.parse(response.body).r2)
             }else{
               res.send("please check the name use Corki or Rumble")
