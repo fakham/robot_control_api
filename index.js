@@ -87,7 +87,7 @@ app.get("/tasks/:name", (req, res) => {
                 Corki.push(element[0]);
                 Corki.push(element[1]);
               });
-              res.send(JSON.parse(Corki))
+              res.send(Corki)
             }else if( name == 'Rumble'){
 
 
