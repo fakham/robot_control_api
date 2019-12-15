@@ -4,10 +4,7 @@ const bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 const mongodb = require("mongodb");
 const app = express();
-const axios = require('axios');
-const FormData = require('form-data');
-var request = require('request');
-var querystring = require('querystring');
+var request = require("request");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -35,81 +32,68 @@ app.get("/tasks", (req, res) => {
 
 //get tasks for a specific robot with name
 app.get("/tasks/:name", (req, res) => {
-
-  let name = req.params.name
+  let name = req.params.name;
   MongoClient.connect(
     process.env.DATABASE_CONNECTION,
     { useUnifiedTopology: true },
     (err, db) => {
       console.log("connected to db!");
       const dbo = db.db("irobot");
-      dbo.collection("tasks").find({}).toArray((err, TasksResults) => {
-        var options = {
-          'method': 'GET',
-          'url': 'https://irobot-api.herokuapp.com/robots',
-          'headers': {
-          }
-        };
-        request(options, function (error, responseRobots) { 
-          if (error) throw new Error(error);
-          let list = []
-          responseRobots.body = responseRobots.body.replace("\\", '');
-          TasksResults.forEach(element => {
-            list.push("'"+element.x+", "+element.y+"'")
-          });
-
-          let lista = '['+list.toString()+']'
-          
-          data = {
-            'rb1x': JSON.parse(responseRobots.body)[0].x,
-            'rb1y': JSON.parse(responseRobots.body)[0].y,
-            'rb2x': JSON.parse(responseRobots.body)[1].x,
-            'rb2y': JSON.parse(responseRobots.body)[1].y,
-            'list': lista
-          } 
-
-          //res.send(data)
-          
-          //var request = require('request');
+      dbo
+        .collection("tasks")
+        .find({})
+        .toArray((err, TasksResults) => {
           var options = {
-            'method': 'POST',
-            'url': 'https://robowat.herokuapp.com/upload',
-            'headers': {
-            },
-            formData: data
+            method: "GET",
+            url: "https://irobot-api.herokuapp.com/robots",
+            headers: {}
           };
-          request(options, function (error, response) { 
+          request(options, function(error, responseRobots) {
             if (error) throw new Error(error);
-              
-            if(name == 'Corki'){
-              let Corki = []
-              JSON.parse(response.body).r1.forEach(element => {
-                Corki.push(element[0]);
-                Corki.push(element[1]);
-              });
-              res.send(Corki)
-            }else if( name == 'Rumble'){
-              let Rumble = []
-              JSON.parse(response.body).r2.forEach(element => {
-                Rumble.push(element[0]);
-                Rumble.push(element[1]);
-              });
-              res.send(Rumble)
-            }else{
-              res.send("please check the name use Corki or Rumble")
-            }
+            let list = [];
+            responseRobots.body = responseRobots.body.replace("\\", "");
+            TasksResults.forEach(element => {
+              list.push("'" + element.x + ", " + element.y + "'");
+            });
+
+            let lista = "[" + list.toString() + "]";
+
+            data = {
+              rb1x: JSON.parse(responseRobots.body)[0].x,
+              rb1y: JSON.parse(responseRobots.body)[0].y,
+              rb2x: JSON.parse(responseRobots.body)[1].x,
+              rb2y: JSON.parse(responseRobots.body)[1].y,
+              list: lista
+            };
+
+            var options = {
+              method: "POST",
+              url: "https://robowat.herokuapp.com/upload",
+              headers: {},
+              formData: data
+            };
+            request(options, function(error, response) {
+              if (error) throw new Error(error);
+
+              if (name == "Corki") {
+                let Corki = [];
+                JSON.parse(response.body).r1.forEach(element => {
+                  Corki.push(element[0]);
+                  Corki.push(element[1]);
+                });
+                res.send(Corki);
+              } else if (name == "Rumble") {
+                let Rumble = [];
+                JSON.parse(response.body).r2.forEach(element => {
+                  Rumble.push(element[0]);
+                  Rumble.push(element[1]);
+                });
+                res.send(Rumble);
+              } else {
+                res.send("please check the name use Corki or Rumble");
+              }
+            });
           });
-          
-
-
-
-
-
-
-
-          
-        });
-
         });
       db.close();
     }
@@ -131,13 +115,6 @@ app.post("/tasks", (req, res) => {
     }
   );
 });
-
-
-/*
-
-
-
-*/
 
 app.delete("/tasks/:id", (req, res) => {
   MongoClient.connect(
